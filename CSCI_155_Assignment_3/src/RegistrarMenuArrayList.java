@@ -88,21 +88,19 @@ public class RegistrarMenuArrayList {
     }
 
     public static void removeCourse() {
-        while (true) {
-            System.out.print("\nPlease enter the title of the course to remove: ");
-            String course = input.nextLine().trim().toUpperCase();
-        	if (course.isEmpty()) {
-            	System.out.println("\nCourse name cannot be empty.");
-            	continue;
-            }
-            if (courseList.contains(course)) {
-                courseList.remove(course);
-                System.out.println("\nCourse was successfully removed from the list.");
-                break;
-            } else {
-                System.out.println("\nThe course is not found in the list. Returning to main menu.");
-                return;
-            }
+        System.out.print("\nPlease enter the title of the course to remove: ");
+        String course = input.nextLine().trim().toUpperCase();
+
+        if (course.isEmpty()) {
+            System.out.println("\nCourse name cannot be empty.");
+            return;
+        }
+
+        if (courseList.contains(course)) {
+            courseList.remove(course);
+            System.out.println("\nCourse was successfully removed from the list.");
+        } else {
+            System.out.println("\nThe course is not found in the list. Returning to main menu.");
         }
     }
 
