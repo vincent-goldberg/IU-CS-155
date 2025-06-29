@@ -8,7 +8,7 @@
  * This program ensures input validation and provides a user-friendly experience.
  * 
  * @author Red Team
- * @version 1.0
+ * @version 1.1
  * @date 28 June 2025
  */
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class RegistrarMenuArrayList {
     static ArrayList<String> courseList = new ArrayList<>();
-    static Scanner input = new Scanner(System.in); // Single Scanner instance
+    static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         boolean finished = false;
@@ -39,7 +39,7 @@ public class RegistrarMenuArrayList {
             System.out.print("Please input your choice (1-5): ");
             if (input.hasNextInt()) {
                 userChoice = input.nextInt();
-                input.nextLine(); // consume newline
+                input.nextLine(); 
                 if (userChoice >= 1 && userChoice <= 5) {
                     switch (userChoice) {
                         case 1:
@@ -55,60 +55,72 @@ public class RegistrarMenuArrayList {
                             finished = true; break;
                     }
                 } else {
-                    System.out.println("Invalid input! Please enter a number from 1 to 5.");
+                    System.out.println("\nInvalid input! Please enter a number from 1 to 5.");
                 }
             } else {
-                System.out.println("Invalid input! Please enter a number from 1 to 5.");
+                System.out.println("\nInvalid input! Please enter a number from 1 to 5.");
                 input.nextLine(); // clear invalid input
             }
-          
+            
+            System.out.println("\n----------------------------------------");
         }
 
-        input.close(); // Close scanner once program ends
+        input.close(); // Close scanner 
     }
 
     public static void createCourse() {
         while (true) {
             System.out.print("\nPlease enter the title of the course: ");
             String course = input.nextLine().trim().toUpperCase();
-
+            
+            if (course.isEmpty()) {
+            	System.out.println("\nCourse name cannot be empty. Please try again.");
+            	continue;
+            }
             if (courseList.contains(course)) {
-                System.out.println("This course already exists. Please enter a new course.");
+                System.out.println("\nThis course already exists. Please enter a new course.");
             } else {
                 courseList.add(course);
-                System.out.println("Course added successfully!");
+                System.out.println("\nCourse added successfully!");
                 break;
             }
         }
     }
 
     public static void removeCourse() {
-        System.out.print("Please enter the title of the course to remove: ");
-        String course = input.nextLine().trim().toUpperCase();
-
-        if (courseList.contains(course)) {
-            courseList.remove(course);
-            System.out.println("Course was successfully removed from the list.");
-        } else {
-            System.out.println("The course is not found in the list.");
+        while (true) {
+            System.out.print("\nPlease enter the title of the course to remove: ");
+            String course = input.nextLine().trim().toUpperCase();
+        	if (course.isEmpty()) {
+            	System.out.println("\nCourse name cannot be empty.");
+            	continue;
+            }
+            if (courseList.contains(course)) {
+                courseList.remove(course);
+                System.out.println("\nCourse was successfully removed from the list.");
+                break;
+            } else {
+                System.out.println("\nThe course is not found in the list. Returning to main menu.");
+                return;
+            }
         }
     }
 
     public static void numComputingCourse() {
         int count = 0;
         for (String course : courseList) {
-            if (course.toUpperCase().startsWith("COMP")) {
+            if (course.startsWith("COMP")) {
                 count++;
             }
         }
-        System.out.println("Number of computing courses (starting with 'COMP'): " + count);
+        System.out.println("\nNumber of computing courses (starting with 'COMP'): " + count);
     }
 
     public static void displayCourse() {
         if (courseList.isEmpty()) {
-            System.out.println("No courses currently in the list.");
+            System.out.println("\nNo courses currently in the list.");
         } else {
-            System.out.println("Current courses:");
+            System.out.println("\nCurrent courses:");
             for (String crs : courseList) {
                 System.out.println(" - " + crs);
             }
