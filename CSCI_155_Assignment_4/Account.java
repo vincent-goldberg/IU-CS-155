@@ -69,20 +69,15 @@ public class Account {
         return this.dateCreated;
     }
 
-    /**
-     * Returns the monthly interest rate.
-     * @return The monthly interest rate.
-     */
-    public double getMonthlyInterestRate() {
-        return annualInterestRate / 12;
+    //Method to return monthly interest.
+    public static double getMonthlyInterestRate() {
+    	//Divide annual rate by 100, then result by 12 to get rate per month.
+        return (annualInterestRate / 100) / 12; 
     }
 
-    /**
-     * Returns the monthly interest amount.
-     * @return The monthly interest in dollars.
-     */
+    //Method to apply monthly rate to balance, returns interest earned for month.
     public double getMonthlyInterest() {
-        return this.balance * (getMonthlyInterestRate() / 100);
+        return balance * getMonthlyInterestRate();
     }
 
     // Setters
@@ -95,12 +90,14 @@ public class Account {
         this.id = id;
     }
 
-    /**
-     * Sets the annual interest rate shared across all accounts.
-     * @param rate The annual interest rate.
-     */
-    public static void setAnnualInterestRate(double rate) {
-        annualInterestRate = rate;
+    //Adjusts interest rate. This mutator is static because the rate is universal.
+    public static void setAnnualInterestRate(double newAnnualInterestRate) {
+        //Make sure interest rate is not negative
+        if (newAnnualInterestRate >= 0) {
+            annualInterestRate = newAnnualInterestRate;
+        } else {
+            System.out.println("Annual interest rate cannot be negative!");
+        }
     }
 
     // Core operations
