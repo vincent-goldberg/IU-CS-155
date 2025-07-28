@@ -42,7 +42,7 @@ public abstract class Customer {
 	}
 	
 	// Setter methods
-    public void setADdress(String address) {
+    public void setAddress(String address) {
     	if (address != null && !address.isBlank()) {
     		this.address = address;
     	}
