@@ -41,12 +41,12 @@ public class SavingsAccount extends Account {
 	}
 	
 	/**
-     * Applies interest to the current balance.
-     * Uses the current interest rate as a percentage.
+     * Applies interest to the current balance and return interest added
      */
-	public void calculateInterest() {
+	public double calculateInterest() {
 		double interest = getBalance() * (interestRate / 100);
 		makeDeposit(interest);
+		return interest;
 	}
 	
 	/**
@@ -60,6 +60,7 @@ public class SavingsAccount extends Account {
 				"\nSavings Account #: " + getAccountNumber() + 
 				"\nBalance: $" + String.format("%.2f", getBalance()) +
 				"\nInterest Rate: " + interestRate + "%" +
+				"\nOpened: " + getDateOpened() +
 				"\nBranch: " + getBranch().getName();
 	}
 	

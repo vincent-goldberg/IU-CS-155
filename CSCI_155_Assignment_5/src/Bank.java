@@ -49,12 +49,13 @@ public class Bank {
 		System.out.println(savings.getAccountInfo());
 		
 		// 6. Deposit $100, calculate interest, display info
-		savings.makeDeposit(100.0);
+		savings.makeDeposit(100.0);		
+		System.out.println("\n---> After depositing $100\n");
+		System.out.println(savings.getAccountInfo());
 		if (savings instanceof SavingsAccount) {
-			((SavingsAccount) savings).calculateInterest();
+			double earned = ((SavingsAccount) savings).calculateInterest();
+			System.out.println("\n---> Balance after adding your earned interest of: $" + String.format("%.2f", earned));
 		}
-		
-		System.out.println("\n---> After depositing + interest");
 		System.out.println(savings.getAccountInfo());
 		
 		// 7. Print all accounts
