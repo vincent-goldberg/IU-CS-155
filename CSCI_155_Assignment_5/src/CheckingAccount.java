@@ -68,4 +68,8 @@ public class CheckingAccount extends Account {
 				"\nOpened: " + getDateOpened() +
 				"\nBranch: " + getBranch().getName();	}
 	
+	@Override
+	public String toString() {
+		return getAccountInfo(); 
+	}
 }

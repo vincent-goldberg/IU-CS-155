@@ -62,4 +62,9 @@ public class SavingsAccount extends Account {
 				"\nInterest Rate: " + interestRate + "%" +
 				"\nBranch: " + getBranch().getName();
 	}
+	
+	@Override
+	public String toString() {
+		return getAccountInfo(); 
+	}
 }

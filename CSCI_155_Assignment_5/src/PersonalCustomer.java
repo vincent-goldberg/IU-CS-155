@@ -63,4 +63,9 @@ public class PersonalCustomer extends Customer{
 				"\nHome Phone: " + homePhone +
 				"\nWork Phone: " + workPhone;
 	}	
+	
+	@Override
+	public String toString() {
+		return getCustomerInfo(); 
+	}
 }

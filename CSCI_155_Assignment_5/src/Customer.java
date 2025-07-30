@@ -84,6 +84,9 @@ public abstract class Customer {
      */
     public abstract String getCustomerInfo();
     
-    
+    @Override
+	public String toString() {
+		return name;
+	}
 }
 

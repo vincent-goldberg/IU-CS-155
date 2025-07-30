@@ -63,7 +63,6 @@ public class Bank {
 			System.out.println(acc.getAccountInfo());
 			System.out.println("----------");
 		}
-
 	}
 	
 	/**

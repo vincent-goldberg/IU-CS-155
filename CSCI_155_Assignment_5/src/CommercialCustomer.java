@@ -79,4 +79,9 @@ public class CommercialCustomer extends Customer{
                "\nContact Person: " + contactPerson +
                "\nContact Phone: " + contactPhone;
     }
+    
+    @Override
+	public String toString() {
+		return getCustomerInfo(); 
+	}
 } 
