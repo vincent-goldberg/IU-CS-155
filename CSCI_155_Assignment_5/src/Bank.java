@@ -17,10 +17,14 @@ public class Bank {
 		
 		// 1. Create Chicago branch and commercial customer
 		Branch chicagoBranch = new Branch("Chicago Central", "Chicago, Il");
-		Customer bizCustomer = new CommercialCustomer("Tech Corp", "456 Market St", "312-555-0123",
-													  "A", "Jordan Smith", "312-555-0456");
-		Account checking = new CheckingAccount("CHK101", 500.0, bizCustomer,
-											   chicagoBranch, "Business", 100.0);
+		Customer bizCustomer = new CommercialCustomer(
+				"Tech Corp", "456 Market St", "312-555-0123",
+				"A", "Jordan Smith", "312-555-0456"
+				);
+		Account checking = new CheckingAccount(
+				"CHK101", 500.0, bizCustomer,
+				chicagoBranch, "Business", 100.0
+				);
 		bizCustomer.addAccount(checking);
 		chicagoBranch.addAccount(checking);
 		allAccounts.add(checking);
@@ -37,8 +41,10 @@ public class Bank {
 		
 		// 4. Create person customer and savings account in another branch
 		Branch springBranch = new Branch("Springfield Branch", "Springfield, Il");
-		Customer personalCustomer = new PersonalCustomer("Jane Doe", "789 Elm St", "217-555-0198",
-														  "217-555-2222", "217-555-3333");
+		Customer personalCustomer = new PersonalCustomer(
+				"Jane Doe", "789 Elm St", "217-555-0198",
+				"217-555-2222", "217-555-3333"
+				);
 		Account savings = new SavingsAccount("SAV2001", 100.0, personalCustomer, springBranch, 10.0);
 		personalCustomer.addAccount(savings);
 		springBranch.addAccount(savings);
