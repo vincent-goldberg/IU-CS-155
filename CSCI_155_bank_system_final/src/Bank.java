@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -106,6 +107,20 @@ public class Bank implements Serializable {
 		}
 		acc.withdraw(amount);
 		return true;
+	}
+	
+	/**
+	 * Returns an unmodifiable, alphabetically sorted list of all account numbers.
+	 * 
+	 * @return immutable list of account numbers (may be empty)
+	 */
+	public List<String> getAllAccountNumbers() {
+		List <String> ids = new ArrayList<>();
+		for (Account acc : accounts) {
+			ids.add(acc.getAccountNumber());
+		}
+		Collections.sort(ids);
+		return Collections.unmodifiableList(ids);
 	}
 	
 	/**
