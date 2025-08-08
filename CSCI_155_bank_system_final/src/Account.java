@@ -13,7 +13,7 @@ public abstract class Account implements Serializable {
 
     /** Unique account number (immutable once created). */
     protected final String accountNumber;
-
+  
     /** Current balance in the account. */
     protected double balance;
 
@@ -38,7 +38,7 @@ public abstract class Account implements Serializable {
         this.customer = customer;
         this.balance = 0.0;
     }
-
+    
     /** @return the account number */
     public String getAccountNumber() {
         return accountNumber;
@@ -92,8 +92,8 @@ public abstract class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account Number: " + accountNumber +
-               ", Balance: $" + String.format("%.2f", balance) +
-               ", " + customer.toString();
+        return "Account: " + accountNumber +
+        		"\nAccount Onwer: " + customer.toString() +
+               "\nBalance: $" + String.format("%.2f", balance);
     }
 }
