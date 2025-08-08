@@ -60,7 +60,9 @@ public class RegularAccount extends Account implements Serializable {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " [Regular Account, Interest: " + (INTEREST_RATE * 100) +
-				"%, Maintenance Fee: $" + MAINTENANCE_FEE + "]";
+		return super.toString() + 
+				"\nAccount type: Regular Account" +
+				"\nInterest: " + (INTEREST_RATE * 100) + "%" + 
+				"\nMaintenance Fee: $" + MAINTENANCE_FEE;
 	}
 }

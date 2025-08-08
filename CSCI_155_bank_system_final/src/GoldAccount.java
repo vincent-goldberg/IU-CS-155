@@ -57,6 +57,8 @@ public class GoldAccount extends Account implements Serializable {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " [Gold Account, Interest: " + (INTEREST_RATE * 100) + "%]";
+		return super.toString() +
+				"\nAccount type: Gold Account" +
+				"\nInterest: " + (INTEREST_RATE * 100);
 	}
 }

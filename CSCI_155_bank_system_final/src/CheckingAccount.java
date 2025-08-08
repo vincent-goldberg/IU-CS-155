@@ -90,7 +90,9 @@ public class CheckingAccount extends Account implements Serializable {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " [Checking Account, Transactions this month: " + transactionCount + "]";
+		return super.toString() +
+				"\nAccount type: Checking Account" +
+				"\nTransactions this month: " + transactionCount;
 				
 	}
 }
