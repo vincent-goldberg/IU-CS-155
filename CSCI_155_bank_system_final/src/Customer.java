@@ -61,6 +61,6 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer ID: " + customerId + ", Name: " + name;
+        return  name + " (Customer ID: " + customerId + ")";
     }
 }
