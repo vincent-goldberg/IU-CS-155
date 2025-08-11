@@ -42,7 +42,7 @@ public class Bank implements Serializable {
 	 */
 	public void createAccount(String type, String accountNumber, Customer customer) {
 		if (type == null || type.isBlank() || accountNumber == null || accountNumber.isBlank() || customer == null) {
-			throw new IllegalArgumentException("Type, account number, and customer cannot be null.");
+			throw new IllegalArgumentException("Type, account number, and customer cannot be empty or null.");
 		}
 		Account newAccount;
 		switch (type.toLowerCase()) {
@@ -85,11 +85,10 @@ public class Bank implements Serializable {
 	public boolean deposit(String accountNumber, double amount) {
 		Account acc = findAccount(accountNumber);
 		if (acc == null) {
-			System.err.println("Warning: Deposit failed. Account not found: " + accountNumber);
 			return false;
 		}
 		acc.deposit(amount);
-		return true;
+			return true;
 	}
 	
 	/**
@@ -102,25 +101,34 @@ public class Bank implements Serializable {
 	public boolean withdraw(String accountNumber, double amount) {
 		Account acc = findAccount(accountNumber);
 		if (acc == null) {
-			System.err.println("Warning: Withdraw failed. Account not found: " + accountNumber);
 			return false;
+		} else {
+			acc.withdraw(amount);
+			return true;
 		}
-		acc.withdraw(amount);
-		return true;
 	}
 	
 	/**
-	 * Returns an unmodifiable, alphabetically sorted list of all account numbers.
+	 * Returns formatted summaries of all accounts, sorted by account number. 
+	 * Each row: ACC_NUM, TYPE, BALANCE, OWNER_NAME (OWNER_ID)
 	 * 
-	 * @return immutable list of account numbers (may be empty)
+	 * @return immutable list of formatted summary rows (may be empty)
 	 */
-	public List<String> getAllAccountNumbers() {
-		List <String> ids = new ArrayList<>();
-		for (Account acc : accounts) {
-			ids.add(acc.getAccountNumber());
+	public List<String> getAllAccountSummaries() {
+		List<Account> accountCopies = new ArrayList<>(accounts);
+		accountCopies.sort(Comparator.comparing(Account::getAccountNumber));
+		
+		List <String> rows = new ArrayList<>(accountCopies.size());
+		for (Account a : accountCopies) {
+			rows.add(String.format(
+					"%-12s %10.2f      %s (%s)", 
+					a.getAccountNumber(),
+					a.getBalance(),
+					a.getCustomer().getName(),
+					a.getCustomer().getCustomerId()
+					));
 		}
-		Collections.sort(ids);
-		return Collections.unmodifiableList(ids);
+		return Collections.unmodifiableList(rows);
 	}
 	
 	/**
