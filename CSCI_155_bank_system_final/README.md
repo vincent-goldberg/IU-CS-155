@@ -9,7 +9,7 @@ Data is persisted between runs using Java Serialization.
 
 ## Features
 - **Account Types**:
-  - **CheckingAccount**: No interest, two free transactions/month, $3 fee thereafter.
+  - **CheckingAccount**: No interest, two free transactions/month, $3 fee thereafter (fee may reduce balance below 0). 
   - **GoldAccount**: 5% monthly interest, unlimited withdrawals (overdraft allowed).
   - **RegularAccount**: 6% monthly interest, $10 monthly fee (fee may reduce balance below 0).
 - **Core Operations**:
@@ -22,7 +22,7 @@ Data is persisted between runs using Java Serialization.
   7. Remove an account
   8. Apply end-of-month updates (interest & fees)
   9. Display bank statistics (total balance, average balance, zero balance accounts, largest account)
-  10. **List all accounts** — shows account number, type, balance, and owner name (sorted by account number)
+  10. **List all accounts** — shows account number, balance, and owner name (sorted by account number)
   11. Exit (saves data to file)
 
 ---
@@ -42,7 +42,8 @@ Data is persisted between runs using Java Serialization.
 ### `CheckingAccount`
 - Extends `Account`.
 - Overrides `deposit()` and `withdraw()` to count transactions.
-- Applies transaction fees beyond the free limit during monthly update.
+- Withdrawals limited to available balance (no overdrafts).
+- Applies transaction fees beyond the free limit during monthly update, which can reduce balance below zero.
 
 ### `GoldAccount`
 - Extends `Account`.
@@ -79,7 +80,7 @@ This ID ensures compatibility when loading previously saved objects, even if the
 ## Assumptions
 - Account numbers and customer IDs are not enforced to be unique.
 - A customer may own multiple accounts of the same type.
-- Negative balances are allowed for Gold accounts (and for Regular accounts if fees push them negative).
+- **CheckingAccount** and **RegularAccount** are allowed negative balances whenever fees from monthly updates causes a balance to drop below zero. 
 
 ---
 
