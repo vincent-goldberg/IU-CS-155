@@ -43,11 +43,16 @@ public class RegularAccount extends Account implements Serializable {
 		}
 		double amountToWithdraw = Math.min(amount, balance);
 		balance -= amountToWithdraw;
+		
+		// Transaction receipt
+		System.out.println("\nTransaction completed:\n" + 
+				"---> " + String.format("$%.2f", amountToWithdraw) + " withdrawn" +
+				"\n---> " + String.format("$%.2f", balance) + " balance");
 	}
 	
 	/**
 	 * Applies monthly interest and deducts the maintenance fee.
-	 * Interest is only applied is balance is positive.
+	 * Interest is only applied if balance is positive.
 	 * The maintenance fee is always deducted and may drive the balance negative.
 	 */
 	@Override

@@ -42,6 +42,11 @@ public class GoldAccount extends Account implements Serializable {
 			throw new IllegalArgumentException("Withdrawal amount must be positive.");
 		}
 		balance -= amount;
+		
+		// Transaction receipt
+		System.out.println("\nTransaction completed:\n" + 
+				"---> " + String.format("$%.2f", amount) + " withdrawn" +
+				"\n---> " + String.format("$%.2f", balance) + " balance");
 	}
 	
 	/**

@@ -50,6 +50,12 @@ public class CheckingAccount extends Account implements Serializable {
 		}
 		balance += amount;
 		transactionCount ++;
+		
+		// Transaction receipt
+		System.out.println("\nTransaction completed:\n" + 
+				"---> " + String.format("$%.2f", amount) + " deposited" +
+				"\n---> " + String.format("$%.2f", balance) + " balance" +
+				"\n---> " + transactionCount + " transactions this month");
 	}
 	
 	/**
@@ -68,12 +74,18 @@ public class CheckingAccount extends Account implements Serializable {
 		double amountToWithdraw = Math.min(amount, balance); // can't withdraw more than available
 		balance -= amountToWithdraw;
 		transactionCount ++;
+		
+		// Transaction receipt
+		System.out.println("\nTransaction completed:\n" + 
+				"---> " + String.format("$%.2f", amountToWithdraw) + " withdrawn" +
+				"\n---> " + String.format("$%.2f", balance) + " balance" +
+				"\n---> " + transactionCount + " transactions this month");
 	}
 	
 	/**
 	 * Applies monthly fees based on the number of transactions. 
 	 * The first two are free; each additional costs $3.
-	 * Fees are deducted from the balance without letting it go negative.
+	 * Fees are deducted from the balance and may drive the balance negative.
 	 * Resets the transaction count for the new month.
 	 */
 	@Override 
@@ -82,8 +94,7 @@ public class CheckingAccount extends Account implements Serializable {
 			int extraTransactions = transactionCount - FREE_TRANSACTIONS;
 			double totalFees = extraTransactions * TRANSACTION_FEE;
 			
-			// Deduct fees without letting balance go negative
-			balance = Math.max(0, balance-totalFees);
+			balance -= totalFees;
 		}
 		transactionCount = 0;
 	}
