@@ -19,10 +19,7 @@ public class BankSystem {
 	private final Bank bank;
 	private final Scanner scanner;
 	
-	/**
-	 * Constructs a BankSystem and loads any previously saved state.
-	 * 
-	 */
+	/** Constructs a BankSystem and loads any previously saved state. */
 	public BankSystem() {
 		this.scanner = new Scanner(System.in);
 		Bank loaded;
@@ -36,9 +33,7 @@ public class BankSystem {
 		this.bank = loaded;
 	}
 	
-	/**
-	 * Starts the main menu loop.
-	 */
+	/** Starts the main menu loop. */
 	public void run() {
 		boolean running = true;
 		while (running) {
@@ -54,16 +49,17 @@ public class BankSystem {
 			case "7" -> removeAccount();
 			case "8" -> applyMonthlyUpdates();
 			case "9" -> displayStatistics();
-			case "10" -> listAccountIds();
+			case "10" -> listAllAccounts();
 			case "11" -> {
 				saveAndExit();
 				running = false;
 			}
-			default -> System.out.println("Invalid selection. Please enter a number between 1 and 10.");
+			default -> System.out.println("\nInvalid selection. Please enter a number between 1 and 10.");
 			}
 		}
 	}
 	
+	/** Displays menu options for bank system. */
 	private void printMenu() {
 		System.out.println("\n===== Bank Menu =====");
         System.out.println("1. Create a Checking account");
@@ -75,11 +71,12 @@ public class BankSystem {
         System.out.println("7. Remove an account");
         System.out.println("8. Apply end-of-month updates");
         System.out.println("9. Display bank statistics");
-        System.out.println("10. List all account IDs");
+        System.out.println("10. List all accounts");
         System.out.println("11. Exit");
         System.out.print("Choose an option: ");
 	}
 	
+	/** Prompts user for account information and creates an account, or reports a failure. */
 	private void createAccount(String type) {
 		String accNum = promptForNonEmptyString("\nEnter account number");
 		if (accNum == null) return; // User canceled - return to main menu
@@ -99,6 +96,7 @@ public class BankSystem {
 		}
 	}
 	
+	/** Prompts user for account number, amount, and deposits amount, or reports a failure. */
 	private void deposit() {
 		String accNum = promptForNonEmptyString("\nEnter account number");
 		if (accNum == null) return; // User canceled - return to main menu
@@ -107,12 +105,13 @@ public class BankSystem {
 		if (amount < 0) return; // User canceled - return to main menu
 		
 		if (!bank.deposit(accNum, amount)) {
-			System.err.println("\nDeposit failed. Account not found.");
+			System.out.println("\nWarning: Deposit failed. Account " + accNum + " not found.");
 		} else {
 			System.out.println("\nDeposit successful.");
 		}
 	}
 	
+	/** Prompts user for account number, amount, and withdraws amount, or reports a failure. */
 	private void withdraw() {
 		String accNum = promptForNonEmptyString("\nEnter account number");
 		if (accNum == null) return; // User canceled - return to main menu
@@ -121,12 +120,13 @@ public class BankSystem {
 		if (amount < 0) return; // User canceled - return to main menu
 		
 		if (!bank.withdraw(accNum, amount)) {
-			System.err.println("\nWithdraw failed. Account not found.");
+			System.out.println("\nWarning: Withdraw failed. Account " + accNum + " not found.");
 		} else {
-			System.out.println("\nWithdrawal complete.");
+			System.out.println("\nWithdrawal sucessful.");
 		}
 	}
 	
+	/** Prompts user for account number and displays information, or reports account not found.*/
 	private void displayAccount() {
 		String accNum = promptForNonEmptyString("\nEnter account number");
 		if (accNum == null) return;
@@ -135,6 +135,7 @@ public class BankSystem {
 		System.out.println(bank.displayAccountInfo(accNum));
 	}
 	
+	/** Prompts user for account number and removes account, or reports account not found. */
 	private void removeAccount() {
 		String accNum = promptForNonEmptyString("\nEnter account number to remove");
 		if (accNum == null) return; // User canceled - return to main menu
@@ -143,27 +144,27 @@ public class BankSystem {
 		System.out.println(removed ? "\nAccount removed." : "\nAccount not found.");
 	}
 	
+	/** Applies monthly updates to all accounts*/
 	private void applyMonthlyUpdates() {
 		bank.applyMonthlyUpdates();
 		System.out.println("\nMonthly updates applied.");
 	}
 	
-	/**
-	 * Displays all account numbers in bank, or a friendly message if none exists.
-	 */
-	private void listAccountIds() {
-		var ids = bank.getAllAccountNumbers();
-		if (ids.isEmpty()) {
+	/** Displays all account numbers in bank, or a friendly message if none exists. */
+	private void listAllAccounts() {
+		var rows = bank.getAllAccountSummaries();
+		if (rows.isEmpty()) {
 			System.out.println("No accounts found.");
 			return;
 		}
-		System.out.println("\nAccounts in bank:");
-		for (String id : ids) {
-			System.out.println(" - " + id);
-		}
-				
+		System.out.println("\nAccount #      Balance       Owner (ID)");
+	    System.out.println("------------------------------------------------");
+		for (String r : rows) {
+			System.out.println(r);
+		}		
 	}
 	
+	/** Displays the bank statistics for all accounts, or a message no accounts found. */ 
 	private void displayStatistics() {
 		System.out.println("\n--- Bank Statistics ---");
 		System.out.printf("Total balance: $%.2f%n", bank.getTotalBalance());
@@ -177,6 +178,7 @@ public class BankSystem {
 		}
 	}
 	
+	/** Saves the current state of bank data or states saving failed. */
 	private void saveAndExit() {
 		try {
 			bank.saveToFile(DATA_FILE);
@@ -186,8 +188,10 @@ public class BankSystem {
 		}
 	}
 	
+	
 	// -------- Input helpers methods with retry and cancel support for user --------
 	
+	/** Continuously prompts user for input until correct string is provided or user quits */
 	private String promptForNonEmptyString(String prompt) {
 		while (true) {
 			System.out.print(prompt + " or Q to cancel:");
@@ -198,6 +202,7 @@ public class BankSystem {
 		}
 	}
 	
+	/** Continuously prompts user for input until correct numeric is provided or user quits */
 	private double promptForPositiveDouble(String prompt) {
 		while (true) {
 			System.out.print(prompt + " (or Q to cancel): ");
@@ -213,9 +218,7 @@ public class BankSystem {
 		}
 	}
 	
-	/**
-	 * Main entry point for the application.
-	 */
+	/** Main entry point for the application. */
 	public static void main(String[] args) {
 		new BankSystem().run();
 	}
