@@ -72,6 +72,9 @@ public class CheckingAccount extends Account implements Serializable {
 			throw new IllegalArgumentException("Withdrawal amount must be positive.");
 		}
 		double amountToWithdraw = Math.min(amount, balance); // can't withdraw more than available
+		if (amountToWithdraw < amount) {
+			System.out.println("\nNote: Insufficient funds; only " + String.format("$%.2f", amountToWithdraw) + " withdrawn.");
+		}
 		balance -= amountToWithdraw;
 		transactionCount ++;
 		

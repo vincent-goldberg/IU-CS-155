@@ -42,6 +42,9 @@ public class RegularAccount extends Account implements Serializable {
 			throw new IllegalArgumentException("Withdrawal amount must be positive.");
 		}
 		double amountToWithdraw = Math.min(amount, balance);
+		if (amountToWithdraw < amount) {
+			System.out.println("\nNote: Insufficient funds; only " + String.format("$%.2f", amountToWithdraw) + " withdrawn.");
+		}
 		balance -= amountToWithdraw;
 		
 		// Transaction receipt
