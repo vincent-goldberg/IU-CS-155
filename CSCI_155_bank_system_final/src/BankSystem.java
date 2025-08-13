@@ -84,7 +84,7 @@ public class BankSystem {
 		String customerId = promptForNonEmptyString("\nEnter customer ID");
 		if (customerId == null) return; // User canceled - return to main menu
 		
-		String name = promptForNonEmptyString("\nEnter custoer name");
+		String name = promptForNonEmptyString("\nEnter customer name");
 		if (name == null) return; // User canceled - return to main menu
 		
 		try {
@@ -101,7 +101,7 @@ public class BankSystem {
 		String accNum = promptForNonEmptyString("\nEnter account number");
 		if (accNum == null) return; // User canceled - return to main menu
 		
-		double amount = promptForPositiveDouble("\nEnter deposite amount");
+		double amount = promptForPositiveDouble("\nEnter deposit amount");
 		if (amount < 0) return; // User canceled - return to main menu
 		
 		if (!bank.deposit(accNum, amount)) {
