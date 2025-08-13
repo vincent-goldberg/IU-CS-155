@@ -64,6 +64,6 @@ public class GoldAccount extends Account implements Serializable {
 	public String toString() {
 		return super.toString() +
 				"\nAccount type: Gold Account" +
-				"\nInterest: " + (INTEREST_RATE * 100);
+				"\nInterest: " + (INTEREST_RATE * 100) + "%" ;
 	}
 }
