@@ -68,7 +68,7 @@ public abstract class Account implements Serializable {
         
      // Transaction receipt
 	System.out.println("\nTransaction completed:\n" + 
-			"---> " + String.format("$%.2f", amount) + " withdrawn" +
+			"---> " + String.format("$%.2f", amount) + " deposited" +
 			"\n---> " + String.format("$%.2f", balance) + " balance");
     }
 
@@ -98,7 +98,7 @@ public abstract class Account implements Serializable {
     @Override
     public String toString() {
         return "Account: " + accountNumber +
-        		"\nAccount Onwer: " + customer.toString() +
+        		"\nAccount Owner: " + customer.toString() +
                "\nBalance: $" + String.format("%.2f", balance);
     }
 }
